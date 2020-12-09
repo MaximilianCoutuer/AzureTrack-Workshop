@@ -26,7 +26,7 @@ namespace RMotownFestival.Api.Data
                       new Artist { Id = 3, Name = "Stevie Wonder", ImagePath = "steviewonder.jpg", Website = new Uri("http://www.steviewonder.net/") },
                       new Artist { Id = 4, Name = "Lionel Richie", ImagePath = "lionelrichie.jpg", Website = new Uri("http://lionelrichie.com/") },
                       new Artist { Id = 5, Name = "Marvin Gaye", ImagePath = "marvingaye.jpg", Website = new Uri("http://www.marvingayepage.net/") }
-        };
+            };
 
             Schedule lineUp = new Schedule();
             lineUp.Items.Add(new ScheduleItem { Id = 1, Artist = artists[0], Stage = stages[0], Time = new DateTime(1972, 07, 01, 20, 0, 0) });

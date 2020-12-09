@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 
 using RMotownFestival.Api.Data;
@@ -14,24 +15,28 @@ namespace RMotownFestival.Api.Controllers
     [ApiController]
     public class FestivalController : ControllerBase
     {
-        public MotownDbContext Context { get; }
+        private MotownDbContext Context { get; }
+        private TelemetryClient TelemetryClient { get; }
 
-        public FestivalController(MotownDbContext context)
+        public FestivalController(MotownDbContext context, TelemetryClient telemetryClient)
         {
             Context = context;
+            TelemetryClient = telemetryClient;
         }
 
         [HttpGet("LineUp")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
         public ActionResult GetLineUp()
         {
+            throw new ApplicationException("My microsoft is crash");
             return Ok(FestivalDataSource.Current.LineUp);
         }
 
         [HttpGet("Artists")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
-        public ActionResult GetArtists()
+        public ActionResult GetArtists(bool? withRatings)
         {
+            if (withRatings.HasValue && withRatings.Value) TelemetryClient.TrackEvent($"List of artists with rating"); else TelemetryClient.TrackEvent($"List of artists without rating");
             return Ok(Context.Artists);
         }
 

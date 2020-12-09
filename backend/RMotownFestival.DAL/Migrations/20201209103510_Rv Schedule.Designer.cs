@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMotownFestival.DAL;
 
 namespace RMotownFestival.DAL.Migrations
 {
     [DbContext(typeof(MotownDbContext))]
-    partial class MotownDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201209103510_Rv Schedule")]
+    partial class RvSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
