@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using RMotownFestival.Api.Data;
 using RMotownFestival.Api.Domain;
+using RMotownFestival.DAL;
 
 namespace RMotownFestival.Api.Controllers
 {
@@ -13,6 +14,13 @@ namespace RMotownFestival.Api.Controllers
     [ApiController]
     public class FestivalController : ControllerBase
     {
+        public MotownDbContext Context { get; }
+
+        public FestivalController(MotownDbContext context)
+        {
+            Context = context;
+        }
+
         [HttpGet("LineUp")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
         public ActionResult GetLineUp()
@@ -24,14 +32,14 @@ namespace RMotownFestival.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
         public ActionResult GetArtists()
         {
-            return Ok(FestivalDataSource.Current.Artists);
+            return Ok(Context.Artists);
         }
 
         [HttpGet("Stages")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Stage>))]
         public ActionResult GetStages()
         {
-            return Ok(FestivalDataSource.Current.Stages);
+            return Ok(Context.Stages);
         }
 
         [HttpPost("Favorite")]
